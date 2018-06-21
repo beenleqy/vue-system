@@ -2,58 +2,40 @@
   @import "./main.less";
 </style>
 <template>
-  <div class="layout">
-    <Sider :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto'}">
-      <Menu active-name="1-2" theme="dark" width="auto" :open-names="['1']">
-        <Submenu name="1">
-          <template slot="title">
-            <Icon type="ios-navigate"></Icon>
-            Item 1
-          </template>
-          <MenuItem name="1-1">Option 1</MenuItem>
-          <MenuItem name="1-2">Option 2</MenuItem>
-          <MenuItem name="1-3">Option 3</MenuItem>
-        </Submenu>
-        <Submenu name="2">
-          <template slot="title">
-            <Icon type="ios-keypad"></Icon>
-            Item 2
-          </template>
-          <MenuItem name="2-1">Option 1</MenuItem>
-          <MenuItem name="2-2">Option 2</MenuItem>
-        </Submenu>
-        <Submenu name="3">
-          <template slot="title">
-            <Icon type="ios-analytics"></Icon>
-            Item 3
-          </template>
-          <MenuItem name="3-1">Option 1</MenuItem>
-          <MenuItem name="3-2">Option 2</MenuItem>
-        </Submenu>
-      </Menu>
-    </Sider>
-    <Layout :style="{marginLeft: '200px'}">
-      <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)'}">
-
-      </Header>
-      <Content :style="{padding: '0 16px 16px'}">
-        <Breadcrumb :style="{margin: '16px 0'}">
-          <BreadcrumbItem>Home</BreadcrumbItem>
-          <BreadcrumbItem>Components</BreadcrumbItem>
-          <BreadcrumbItem>Layout</BreadcrumbItem>
-        </Breadcrumb>
-        <Card>
-          <div style="height: 600px">Content</div>
-        </Card>
-      </Content>
-    </Layout>
+  <div class="main" :class="{'main-hide-text': shrink}">
+    <div class="sidebar-menu-con">
+      <shrinkable-menu
+        :shrink="shrink"
+        :theme="menuTheme"
+      >
+        <div slot="top" class="logo-con">
+          <h1 v-show="!shrink">logo</h1>
+          <h4 v-show="shrink">logo</h4>
+        </div>
+      </shrinkable-menu>
+    </div>
+    <div class="main-header-con" :style="{paddingLeft: shrink?'60px': '200px'}">
+      <div class="main-header">
+        <div class="navicon-con">
+          <Button :style="{transform: 'rotateZ(' + (this.shrink ? '-90' : '0') + 'deg)'}" type="text" @click="toggleClick">
+            <Icon type="navicon" size="32"></Icon>
+          </Button>
+        </div>
+      </div>
+      <div class="tags-con"></div>
+    </div>
+    <div class="single-page-con" :style="{left: shrink?'60px': '200px'}">内容</div>
   </div>
 </template>
 <script>
+import shrinkableMenu from '@/views/main-components/shrinkable-menu/shrinkableMenu.vue'
 export default {
+  components: {
+    shrinkableMenu
+  },
   data () {
     return {
-      isCollapsed: false
+      shrink: false
     }
   },
   computed: {
@@ -68,11 +50,17 @@ export default {
         'menu-item',
         this.isCollapsed ? 'collapsed-menu' : ''
       ]
+    },
+    menuTheme () {
+      return this.$store.state.App.menuTheme
     }
   },
   methods: {
     collapsedSider () {
       this.$refs.side1.toggleCollapse()
+    },
+    toggleClick () {
+      this.shrink = !this.shrink
     }
   }
 }
