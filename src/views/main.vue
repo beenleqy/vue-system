@@ -21,6 +21,16 @@
             <Icon type="navicon" size="32"></Icon>
           </Button>
         </div>
+        <div class="header-middle-con">
+          <div class="main-breadcrumb">
+            <breadcrumb-nav :currentPath="currentPath"></breadcrumb-nav>
+          </div>
+        </div>
+        <div class="header-avator-con">
+          <full-screen v-model="isFullScreen" ></full-screen>
+          <lock-screen></lock-screen>
+          <message-tip v-model="mesCount"></message-tip>
+        </div>
       </div>
       <div class="tags-con"></div>
     </div>
@@ -29,27 +39,28 @@
 </template>
 <script>
 import shrinkableMenu from '@/views/main-components/shrinkable-menu/shrinkableMenu.vue'
+import breadcrumbNav from '@/views/main-components/Breadcrumb.vue'
+import fullScreen from '@/views/main-components/fullScreen.vue'
+import lockScreen from '@/views/main-components/lockScreen/lockScreen.vue'
+import messageTip from '@/views/main-components/messageTip.vue'
 export default {
   components: {
-    shrinkableMenu
+    shrinkableMenu,
+    breadcrumbNav,
+    fullScreen,
+    lockScreen,
+    messageTip
   },
   data () {
     return {
-      shrink: false
+      shrink: false,
+      isFullScreen: false,
+      mesCount: 3
     }
   },
   computed: {
-    rotateIcon () {
-      return [
-        'menu-icon',
-        this.isCollapsed ? 'rotate-icon' : ''
-      ]
-    },
-    menuitemClasses () {
-      return [
-        'menu-item',
-        this.isCollapsed ? 'collapsed-menu' : ''
-      ]
+    currentPath () {
+      return this.$store.state.App.currentPath
     },
     menuTheme () {
       return this.$store.state.App.menuTheme

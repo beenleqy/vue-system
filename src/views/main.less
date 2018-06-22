@@ -47,28 +47,58 @@
     z-index: 20;
     box-shadow: 0 2px 1px 1px rgba(100,100,100,.1);
     transition: padding .3s;
-    .main-header{
-      height: 60px;
-      background: #fff;
-      box-shadow: 0 2px 1px 1px hsla(0,0%,39%,.1);
-      position: relative;
-      z-index: 11;
-      .navicon-con{
-        margin: 6px;
-        display: inline-block;
-        .ivu-btn-text{
-          &:focus{
-            box-shadow: none;
-          }
-        }
-      }
-    }
     .tags-con{
       height: 40px;
       z-index: -1;
       overflow: hidden;
       background: #f0f0f0;
     }
+  }
+  &-header{
+    height: 60px;
+    background: #fff;
+    box-shadow: 0 2px 1px 1px hsla(0,0%,39%,.1);
+    position: relative;
+    z-index: 11;
+    .navicon-con{
+      margin: 6px;
+      display: inline-block;
+      .ivu-btn-text{
+        &:focus{
+          box-shadow: none;
+        }
+      }
+    }
+    .header-middle-con{
+      position: absolute;
+      left: 60px;
+      right: 340px;
+      top: 0;
+      bottom: 0;
+      padding: 10px;
+      overflow: hidden;
+    }
+    .header-avator-con{
+      position: absolute;
+      width: 300px;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      .header-btn-con{
+        display: inline-block;
+        width: 30px;
+        padding: 19px 0;
+        cursor: pointer;
+        text-align: center;
+        i{
+          vertical-align: middle;
+          color: rgb(101, 113, 128);
+        }
+      }
+    }
+  }
+  &-breadcrumb{
+    padding: 8px 15px 0;
   }
   .single-page-con{
     position: absolute;
